@@ -1,2 +1,2 @@
-# random-classroom
+# Random classroom
  
