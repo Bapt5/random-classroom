@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session, url_for
 from flask_session import Session
 from flask.json import jsonify
 import csv
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -17,12 +18,18 @@ def generate():
     rangee = int(request.form['rangee'])
     # roomName = int(request.form['roomName'])
     Organisationclasse = [[ "" if (table == 1 and j%2 == 0) or (table == 2 and (j+1)%3 !=0 ) else None for j in range(colonne * table + (colonne-1))] for i in range(rangee)]
-    # with open(request.form[], newline='') as csvfile:
-    #     reader = csv.DictReader(csvfile)
-    #     for row in reader:
-    #         print(row['first_name'], row['last_name'])
     print (Organisationclasse)
     return ('test')
+
+@app.route('/tableau', methods=['POST'])
+def tableau():
+    excel = pd.read_excel(request.form[''])
+    excel.to_csv(csv)
+    with open(request.form[], newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            print(row['first_name'], row['last_name'])
+
 
 
 if __name__ == '__main__':
