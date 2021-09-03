@@ -16,16 +16,6 @@ def generate():
     rangee = int(request.form['rangee'])
     # roomName = int(request.form['roomName'])
     Organisationclasse = [[ "" if (table == 1 and j%2 == 0) or (table == 2 and (j+1)%3 !=0 ) else None for j in range(colonne * table + (colonne-1))] for i in range(rangee)]
-    # if table == 1:
-    #     for a in Organisationclasse :
-    #         for i in range (colonne + colonne-1) :
-    #             if i%2 != 0 :
-    #              a.insert(i, None)
-    # if table == 2:
-    #     for a in Organisationclasse :
-    #         for i in range (colonne + colonne-1) :
-    #             if (i-1)%3 == 0 and i != 0:
-    #                 a.insert(i, None)
     print (Organisationclasse)
     return ('test')
 
