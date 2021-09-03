@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, session, url_for
 from flask.json import jsonify
 import csv
 import pandas as pd
+import os
+from charset_normalizer import detect
 
 app = Flask(__name__)
 
@@ -36,15 +38,15 @@ def tableau():
     if ext == 'xls' or ext == 'xlsx':
         excel = pd.read_excel(file)
         excel.to_csv('listeEleve.csv')
-        with open('listeEleve.csv', newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
+
     elif ext == 'csv':
-        reader = csv.DictReader(file.read())
-    # for row in reader:
-    #     print("row")
-    return ('test')
+        result = detect(file.read())
+        if result['encoding'] is not None:
+            reader = csv.DictReader(file.read().decode(result['encoding']))
+    return dict(reader)
 
 
 
 if __name__ == '__main__':
+    app.secret_key = os.urandom(24)
     app.run(host="127.0.0.1", port=3000, debug=True)
