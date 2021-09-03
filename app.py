@@ -19,16 +19,21 @@ def generate():
     # roomName = int(request.form['roomName'])
     Organisationclasse = [[ "" if (table == 1 and j%2 == 0) or (table == 2 and (j+1)%3 !=0 ) else None for j in range(colonne * table + (colonne-1))] for i in range(rangee)]
     print (Organisationclasse)
-    return ('test')
+    return redirect(url_for('enterStudent'))
+
+@app.route('/enterStudent', methods=['GET'])
+def enterStudent():
+    return render_template('enterStudent.html')
 
 @app.route('/tableau', methods=['POST'])
 def tableau():
-    excel = pd.read_excel(request.form[''])
-    excel.to_csv(csv)
-    with open(request.form[], newline='') as csvfile:
+    excel = pd.read_excel(request.files.get('resume'))
+    excel.to_csv('listeEleve.csv')
+    with open('listeEleve.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
-            print(row['first_name'], row['last_name'])
+            print("row")
+    return ('test')
 
 
 

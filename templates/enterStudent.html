@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Classroom</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <script src="https://kit.fontawesome.com/87544e3da3.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='js/tableRoom.js')}}"></script>
+</head>
+
+<body>
+  <nav class="navbar is-success is-spaced has-shadow is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <h1 class="title">Random Classroom</h1>
+      </a>
+      <a class="navbar-item" href="/normal-classroom">
+        Salles de classe en rangées
+      </a>
+      <a class="navbar-item" href="/other-classroom">
+        Autres salles de classe
+      </a>
+      <a class="navbar-item" href="/my-classroom">
+        Mes salles de classes
+      </a>
+    </div>
+  </nav>
+
+  <div class="container is-max-widescreen" style="margin-top: 10%;">
+    <form action="tableau" method="post" enctype=multipart/form-data>
+
+
+
+      <div class="file is-boxed">
+        <label class="file-label">
+          <input class="file-input" type="file" name="resume">
+          <span class="file-cta">
+            <span class="file-icon">
+              <i class="fas fa-upload"></i>
+            </span>
+            <span class="file-label">
+              Selectionnez votre liste d'élèves...
+            </span>
+          </span>
+        </label>
+      </div>
+
+      <div class="control" id="submit">
+        <button class="button is-success" >Valider</button>
+      </div>
+    </form>
+  </div>
+
+</body>
+
+</html>
