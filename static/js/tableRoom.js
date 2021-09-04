@@ -64,7 +64,7 @@ $(document).ready(function() {
   });
 
   // verifie la validité des input
-  $('form input').blur(function() {
+  $('form input').on('blur change', function() {
     if (!$(this).val()) {
       $(this).addClass("is-danger");
       $(this).removeClass("is-success");
@@ -75,7 +75,7 @@ $(document).ready(function() {
   });
 
   // verifie la validité des select
-  $('form select').blur(function() {
+  $('form select').on('blur change', function() {
     if ($('form select option:checked').val() == '') {
       $(this).parent().addClass("is-danger");
       $(this).parent().removeClass("is-success");
@@ -86,5 +86,5 @@ $(document).ready(function() {
   });
 
   // enable le submit si besoin
-  $('.verify').on('blur', verifValid);
+  $('.verify').on('blur change', verifValid);
 });

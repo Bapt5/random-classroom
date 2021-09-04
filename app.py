@@ -3,7 +3,7 @@ from flask.json import jsonify
 import csv
 import pandas as pd
 import os
-from charset_normalizer import detect
+import io
 
 app = Flask(__name__)
 
@@ -33,18 +33,19 @@ def enterStudent():
 
 @app.route('/tableau', methods=['POST'])
 def tableau():
-    file = request.files['eleves']
-    ext = getExtension(file)
-    if ext == 'xls' or ext == 'xlsx':
-        excel = pd.read_excel(file)
-        excel.to_csv('listeEleve.csv')
-
-    elif ext == 'csv':
-        result = detect(file.read())
-        if result['encoding'] is not None:
-            reader = csv.DictReader(file.read().decode(result['encoding']))
-    return dict(reader)
-
+    if 'eleves' in request.files:
+        file = request.files['eleves']
+        ext = getExtension(file)
+        if ext == 'xls' or ext == 'xlsx':
+            excel = pd.read_excel(file)
+            f = io.StringIO()
+            excel.to_csv(f)
+            reader = csv.DictWriter(f.getvalue())
+        elif ext == 'csv':
+            reader = csv.DictReader(str(file.read()))
+        return dict(reader)
+    else:
+        return 'test'
 
 
 if __name__ == '__main__':

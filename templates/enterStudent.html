@@ -49,9 +49,18 @@
       </div>
 
       <div class="control" id="submit">
-        <button class="button is-success" >Valider</button>
+        <button class="button is-success">Valider</button>
       </div>
     </form>
+
+    <form action="tableau" method="post" enctype=multipart/form-data>
+      <label for="eleve" class="label">Entrer le nom d'un élève</label>
+      <input type="text" class="input" name="eleve" id="eleve" placeholder="Nom Prénom" style="width: 40%;" />
+      <br><br>
+      <button class="button is-link" name="ajout" id="ajout">Ajouter</button>
+      <br><br>
+    </form>
+
   </div>
 
 </body>
