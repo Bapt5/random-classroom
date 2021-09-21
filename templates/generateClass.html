@@ -1,0 +1,21 @@
+<table class="table is-bordered is-fullwidth">
+  {%for row in classe%}
+  <tr>
+    {%for col in row%}
+      {%if col == ''%}
+      <td class="table">
+        <i class="fas fa-user-graduate"></i>
+      </td>
+      {%elif col==None%}
+      <td class="couloir" style="border-top: 0px;border-bottom: 0px;">
+        <p></p>
+      </td>
+      {%else%}
+      <td class="table">
+        <p>{{col}}</p>
+      </td>
+      {%endif%}
+    {%endfor%}
+  </tr>
+  {%endfor%}
+</table>

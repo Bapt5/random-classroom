@@ -3,6 +3,7 @@ from flask.json import jsonify
 import csv
 import os
 import json
+from random import choice
 
 app = Flask(__name__)
 
@@ -20,14 +21,20 @@ def generate():
     colonne = int(request.form['colonne'])
     rangee = int(request.form['rangee'])
     # roomName = int(request.form['roomName'])
-    Organisationclasse = [[ "" if (table == 1 and j%2 == 0) or (table == 2 and (j+1)%3 !=0 ) else None for j in range(colonne * table + (colonne-1))] for i in range(rangee)]
-    session['currentRoom'] = Organisationclasse
-    return redirect(url_for('enterStudent'))
+    organisationClasse = [[ "" if (table == 1 and j%2 == 0) or (table == 2 and (j+1)%3 !=0 ) else None for j in range(colonne * table + (colonne-1))] for i in range(rangee)]
+    if 'jquery' in request.form:
+        return render_template('generateClass.html', classe=organisationClasse)
+    else:
+        session['currentRoom'] = organisationClasse
+        return redirect(url_for('enterStudent'))
 
 
 @app.route('/enterStudent', methods=['GET'])
 def enterStudent():
-    return render_template('enterStudent.html')
+    if 'currentRoom' in session:
+        return render_template('enterStudent.html', classe=session['currentRoom'])
+    else:
+        return redirect(url_for('index'))
 
 
 @app.route('/tableau', methods=['POST'])
@@ -39,7 +46,23 @@ def tableau():
             reader = csv.DictReader(f, delimiter=';')
             eleves = [row['\ufeffÉlève'] for row in reader]
         os.remove(file.filename)
-        return str(eleves)
+        session['currentListe'] = eleves
+        return redirect(url_for('plan'))
+    else:
+        return redirect(url_for('enterStudent'))
+
+@app.route('/plan')
+def plan():
+    if 'currentListe' in session:
+        plan = session['currentRoom'].copy()
+        liste = session['currentListe'].copy()
+        for i, row in enumerate(plan):
+            for j, col in enumerate(row):
+                if col != None:
+                    choix = choice(liste)
+                    plan[i][j] = choix
+                    liste.remove(choix)
+        return render_template('plan.html', classe=plan)
     else:
         return redirect(url_for('enterStudent'))
 

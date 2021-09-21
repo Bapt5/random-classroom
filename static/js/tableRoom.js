@@ -12,7 +12,7 @@ function verifValid() {
   }
 
   // verifie le nom de la salle si il faut l'enregistrer
-  if ($('#saveRoom').is(':checked')){
+  if ($('#saveRoom').is(':checked')) {
     if (!$('#roomName').hasClass("is-success")) {
       ok = false;
     }
@@ -26,30 +26,25 @@ function verifValid() {
 }
 
 // buguer
-function generateRoom(){
+function generateRoom() {
   // recupère les var des input
   tables = parseInt($('form select option:checked').val());
   cols = parseInt($('#colonne').val());
   rows = parseInt($('#rangee').val());
 
-  // créé un tableau
-  $('body').add('table').attr('id', 'rendu');
-  $table = $('#rendu');
-
-  // pour chaque ligne
-  for (var i = 0; i < rows; i++){
-    ligne = $table.add('tr');
-    // pour chaque colonne
-    for (var j = 0; j < cols; j++){
-      // pour chaque table
-      for (var k = 0; k < tables; k++){
-        cell = ligne.add('td');
-        cell.append('<i class="fas fa-user-graduate"></i>');
-      }
-      // ajout de la rangée de passage
-      ligne.add('td');
+  $.ajax({
+    type: 'POST',
+    url: '/generate',
+    data: {
+      'table': tables,
+      'colonne': cols,
+      'rangee': rows,
+      'jquery': true
+    },
+    success: (data) => {
+      $('#classe').html(data);
     }
-  }
+  });
 }
 
 $(document).ready(function() {

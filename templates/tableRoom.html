@@ -2,89 +2,60 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Random Classroom</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-  <script src="https://kit.fontawesome.com/87544e3da3.js" crossorigin="anonymous"></script>
+  {% include 'head.html' %}
   <script type="text/javascript" src="{{url_for('static', filename='js/tableRoom.js')}}"></script>
 </head>
 
 <body>
-  <nav class="navbar is-success is-spaced has-shadow is-fixed-top" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="/">
-        <h1 class="title">Random Classroom</h1>
-      </a>
-      <a class="navbar-item" href="/normal-classroom">
-        Salles de classe en rangées
-      </a>
-      <a class="navbar-item" href="/other-classroom">
-        Autres salles de classe
-      </a>
-      <a class="navbar-item" href="/my-classroom">
-        Mes salles de classes
-      </a>
-    </div>
-  </nav>
+  {% include 'nav.html' %}
 
   <div class="container is-max-widescreen" style="margin-top: 10%;">
-    <form action="generate" method="post">
+    <div class="columns">
+      <div class="column is-half is-desktop">
+        <form action="generate" method="post">
 
-      <label for="table" class="label">Nombre de tables</label>
-      <p class="control has-icons-left">
-        <span class="select verify">
-          <select name="table" id="table">
-            <option value="" disabled selected>Selectionnez le nombre de tables par colonne</option>
-            <option value="1">Colonnes de 1 table</option>
-            <option value="2">Colonnes de 2 tables</option>
-          </select>
-        </span>
-        <span class="icon is-small is-left">
-          <i class="fa-solid fa-chair"></i>
-        </span>
-      </p>
-      <br>
-
-      <label for="colonne" class="label">Nombre de colonnes</label>
-      <input type="number" class="input verify" name="colonne" id="colonne" placeholder="Colonnes" style="width: 40%;" />
-      <br><br>
-
-      <label for="rangee" class="label">Nombre de rangées</label>
-      <input type="number" class="input verify" name="rangee" id="rangee" placeholder="Rangées" style="width: 40%;" />
-      <br><br>
-
-      <label class="checkbox">
-        <input type="checkbox" id="saveRoom">
-        Se souvenir de cette salle
-      </label>
-      <br><br>
-
-      <div id="inputName" style="display: none;">
-        <label for="roomName" class="label">Nom de la salle</label>
-        <input type="text" class="input" name="roomName" id="roomName" placeholder="Salle" style="width: 40%;" />
-        <br><br>
-      </div>
-
-      <!-- <div class="file is-boxed">
-        <label class="file-label">
-          <input class="file-input" type="file" name="resume">
-          <span class="file-cta">
-            <span class="file-icon">
-              <i class="fas fa-upload"></i>
+          <label for="table" class="label">Nombre de tables</label>
+          <p class="control has-icons-left">
+            <span class="select verify">
+              <select name="table" id="table">
+                <option value="" disabled selected>Selectionnez le nombre de tables par colonne</option>
+                <option value="1">Colonnes de 1 table</option>
+                <option value="2">Colonnes de 2 tables</option>
+              </select>
             </span>
-            <span class="file-label">
-              Selectionnez votre liste d'élèves...
+            <span class="icon is-small is-left">
+              <i class="fa-solid fa-chair"></i>
             </span>
-          </span>
-        </label>
-      </div> -->
+          </p>
+          <br>
 
-      <div class="control" id="submit">
-        <button class="button is-success" disabled>Valider</button>
+          <label for="colonne" class="label">Nombre de colonnes</label>
+          <input type="number" class="input verify" name="colonne" id="colonne" placeholder="Colonnes"/>
+          <br><br>
+
+          <label for="rangee" class="label">Nombre de rangées</label>
+          <input type="number" class="input verify" name="rangee" id="rangee" placeholder="Rangées"/>
+          <br><br>
+
+          <label class="checkbox">
+            <input type="checkbox" id="saveRoom">
+            Se souvenir de cette salle
+          </label>
+          <br><br>
+
+          <div id="inputName" style="display: none;">
+            <label for="roomName" class="label">Nom de la salle</label>
+            <input type="text" class="input" name="roomName" id="roomName" placeholder="Salle"/>
+            <br><br>
+          </div>
+
+          <div class="control" id="submit">
+            <button class="button is-success" disabled>Valider</button>
+          </div>
+        </form>
       </div>
-    </form>
+      <div id="classe" class="column is-half is-desktop"></div>
+    </div>
   </div>
 
 </body>
