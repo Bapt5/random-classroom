@@ -34,11 +34,11 @@ def enterStudent():
 def tableau():
     if 'eleves' in request.files:
         file = request.files['eleves']
-        if file:
-            file.save(f'csv/{file.filename}')
-            with open (f'csv/{file.filename}','r', encoding='utf-8') as f :
-                reader = csv.DictReader(f, delimiter=';')
-                eleves = [row['\ufeffÉlève'] for row in reader]
+        file.save(file.filename)
+        with open (file.filename,'r', encoding='utf-8') as f :
+            reader = csv.DictReader(f, delimiter=';')
+            eleves = [row['\ufeffÉlève'] for row in reader]
+        os.remove(file.filename)
         return str(eleves)
     else:
         return redirect(url_for('enterStudent'))
