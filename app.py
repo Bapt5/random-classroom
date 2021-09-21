@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request, redirect, session, url_for
 from flask.json import jsonify
 import csv
-import pandas as pd
 import os
-import io
+import json
 
 app = Flask(__name__)
 
@@ -38,18 +37,11 @@ def tableau():
         if file:
             file.save(f'csv/{file.filename}')
             with open (f'csv/{file.filename}','r', encoding='utf-8') as f :
-                eleves = csv.DictReader(f)
-                test = [row for row in eleves]
-
-        # eleves = csv.DictReader(file)
-        # eleves = [row['Eleve'] for row in eleves]
-        # reader = csv.reader(str(file.read()))
-        # stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
-        # eleves = pd.read_csv(stream, header=0, names="Elève")
-        print (test)
-        return str(test)
+                reader = csv.DictReader(f, delimiter=';')
+                eleves = [row['\ufeffÉlève'] for row in reader]
+        return str(eleves)
     else:
-        return 'test'
+        return redirect(url_for('enterStudent'))
 
 
 if __name__ == '__main__':
