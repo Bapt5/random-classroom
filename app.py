@@ -35,15 +35,19 @@ def enterStudent():
 def tableau():
     if 'eleves' in request.files:
         file = request.files['eleves']
-        ext = getExtension(file)
-        if ext == 'xls' or ext == 'xlsx':
-            excel = pd.read_excel(file)
-            f = io.StringIO()
-            excel.to_csv(f)
-            reader = csv.DictWriter(f.getvalue())
-        elif ext == 'csv':
-            reader = csv.DictReader(str(file.read()))
-        return dict(reader)
+        if file:
+            file.save(f'csv/{file.filename}')
+            with open (f'csv/{file.filename}','r', encoding='utf-8') as f :
+                eleves = csv.DictReader(f)
+                test = [row for row in eleves]
+
+        # eleves = csv.DictReader(file)
+        # eleves = [row['Eleve'] for row in eleves]
+        # reader = csv.reader(str(file.read()))
+        # stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
+        # eleves = pd.read_csv(stream, header=0, names="Elève")
+        print (test)
+        return str(test)
     else:
         return 'test'
 
