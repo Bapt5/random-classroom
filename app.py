@@ -72,4 +72,7 @@ def plan():
 
 if __name__ == '__main__':
     app.secret_key = os.urandom(24)
-    app.run(host="127.0.0.1", port=3000, debug=True)
+    if 'HEROKU' in os.environ:
+        app.run(host="0.0.0.0", port=os.environ.get("PORT", 5000))
+    else:
+        app.run(host="127.0.0.1", port=3000, debug=True)
