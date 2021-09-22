@@ -59,9 +59,12 @@ def plan():
         for i, row in enumerate(plan):
             for j, col in enumerate(row):
                 if col != None:
-                    choix = choice(liste)
-                    plan[i][j] = choix
-                    liste.remove(choix)
+                    if len(liste)>0:
+                        choix = choice(liste)
+                        plan[i][j] = choix
+                        liste.remove(choix)
+                    else:
+                        break
         return render_template('plan.html', classe=plan)
     else:
         return redirect(url_for('enterStudent'))
